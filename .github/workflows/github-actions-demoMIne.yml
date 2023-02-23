@@ -35,6 +35,7 @@ jobs:
               -containerName $containerName `
               -credential $credential `
               -testSuite 'DEFAULT' `
+              -testFunction 'CreateNewUser' `
               -detailed `
               -XUnitResultFileName $xunitResultsFile `
               -returnTrueIfAllPassed 
