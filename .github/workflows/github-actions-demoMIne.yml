@@ -20,4 +20,7 @@ jobs:
       - name: List containers
         run: |
           docker ps
+      - name: List ServerInstance
+        run: |
+          Invoke-ScriptInNavContainer -containername $containerName -scriptblock {Get-NavServerInstance BC}
       - run: echo "🍏 This job's status is ${{ job.status }}."
