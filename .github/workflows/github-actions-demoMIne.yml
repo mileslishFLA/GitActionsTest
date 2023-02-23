@@ -25,9 +25,17 @@ jobs:
           Invoke-ScriptInNavContainer -containername $containerName -scriptblock {Get-NavServerInstance BC}
       - name: run one test
         run: |
-              $xunitResultsFile = "C:\ProgramData\BcContainerHelper\Extensions\MyLocalBC\BCTechDays.xml" 
-              $securePassword = ConvertTo-SecureString -String "test" -AsPlainText -Force     
-              $credential = New-Object System.Management.Automation.PSCredential -argumentList "test", $securePassword
-              Run-TestsInBCContainer -containerName "MyLocalBC" -credential $credential -testSuite 'DEFAULT' -testFunction 'CreateNewUser' -detailed    -returnTrueIfAllPassed `-GitHubActions error
-
+              $containerName = "MyLocalBC"
+              $userName = "test"
+              $userPswrd = "test"
+              $xunitResultsFile = "C:\ProgramData\BcContainerHelper\Extensions\MyLocalBC\BCTechDays.xml"
+              $securePassword = ConvertTo-SecureString -String $userPswrd -AsPlainText -Force
+              $credential = New-Object System.Management.Automation.PSCredential -argumentList $userName, $securePassword
+              Run-TestsInBCContainer `
+              -containerName $containerName `
+              -credential $credential `
+              -testSuite 'DEFAULT' `
+              -detailed `
+              -XUnitResultFileName $xunitResultsFile `
+              -returnTrueIfAllPassed 
       - run: echo "🍏 This job's status is ${{ job.status }}."
